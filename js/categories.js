@@ -37,9 +37,9 @@ let x = fetch("https://opentdb.com/api_category.php")
     });
   });
 
-let categoryid;
 
+  
 function selcetedCate(id) {
+  localStorage.setItem('category',id)
   location.href = "../quest.html";
-  categoryid = id;
 }
