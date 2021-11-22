@@ -1,3 +1,6 @@
+let allAnswersArr = [];
+let correctAnswers = [];
+let answers = [];
 let seca = document.getElementById("under");
 let index = JSON.parse(localStorage.getItem("category"));
 
@@ -21,10 +24,15 @@ let x = fetch(
 
     let dataArr = data.results;
 
-
-    
     for (let i = 0; i < dataArr.length; i++) {
+      correctAnswers.push(dataArr[i].correct_answer);
+      answers = dataArr[i].incorrect_answers;
+      answers.splice(getRandomInt(4), 0, dataArr[i].correct_answer);
 
+      allAnswersArr[i] = answers;
+    }
+
+    for (let i = 0; i < dataArr.length; i++) {
       const section = document.createElement("section");
       section.setAttribute("class", "card");
 
@@ -41,43 +49,20 @@ let x = fetch(
       let div2 = document.createElement("div");
       div2.setAttribute("class", "choices");
 
-      let btn1 = document.createElement("input");
-      btn1.setAttribute("id", `choice1${i}`);
-      btn1.setAttribute("type", "radio");
-      btn1.setAttribute("name", `choice${i}`);
+      for (m = 0; m < allAnswersArr[i].length; m++) {
+        let btn = document.createElement("input");
+        btn.setAttribute("id", `group${i}${m}`);
+        btn.setAttribute("type", "radio");
+        btn.setAttribute("name", `choice${i}`);
+        btn.setAttribute("value", `${allAnswersArr[i][m]}`);
 
-      let label1 = document.createElement("label");
-      label1.setAttribute("for", `choice1${i}`);
-      label1.innerHTML = `${dataArr[i].correct_answer}`;
+        let label = document.createElement("label");
+        label.setAttribute("for", `group${i}${m}`);
+        label.textContent = `${allAnswersArr[i][m]}`;
 
-      let btn2 = document.createElement("input");
-      btn2.setAttribute("id", `choice2${i}`);
-      btn2.setAttribute("type", "radio");
-      btn2.setAttribute("name", `choice${i}`);
-
-      let label2 = document.createElement("label");
-      label2.setAttribute("for", `choice2${i}`);
-      label2.innerHTML = `${dataArr[i].incorrect_answers[0]}`;
-
-      let btn3 = document.createElement("input");
-      btn3.setAttribute("id", `choice3${i}`);
-      btn3.setAttribute("type", "radio");
-      btn3.setAttribute("name", `choice${i}`);
-
-      let label3 = document.createElement("label");
-      label3.setAttribute("for", `choice3${i}`);
-      label3.innerHTML = `${dataArr[i].incorrect_answers[1]}`;
-
-      let btn4 = document.createElement("input");
-      btn4.setAttribute("id", `choice4${i}`);
-      btn4.setAttribute("type", "radio");
-      btn4.setAttribute("name", `choice${i}`);
-
-      let label4 = document.createElement("label");
-      label4.setAttribute("for", `choice4${i}`);
-      label4.innerHTML = `${dataArr[i].incorrect_answers[2]}`;
-
-      let mybr = document.createElement("br");
+        div2.appendChild(btn);
+        div2.appendChild(label);
+      }
 
       if (i == 1 || i == 4 || i == 7) {
         div1.classList.add("orange");
@@ -86,24 +71,40 @@ let x = fetch(
         div1.classList.add("green");
         number.classList.add("sec-green");
       }
-      div1.appendChild(number);
 
-      div1.appendChild(para);
+      let mybr = document.createElement("br");
 
-      div2.appendChild(btn1)
-      div2.appendChild(label1)
-      div2.appendChild(btn2)
-      div2.appendChild(label2)
-      div2.appendChild(btn3)
-      div2.appendChild(label3)
-      div2.appendChild(btn4)
-      div2.appendChild(label4)
       div2.appendChild(mybr);
 
+      div1.appendChild(number);
+      div1.appendChild(para);
 
       section.appendChild(div1);
       section.appendChild(div2);
       seca.appendChild(section);
-
     }
   });
+
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
+}
+
+console.log(correctAnswers);
+
+function showMarks() {
+  let counter = 0;
+let name = localStorage.getItem('name')
+  for (i = 0; i < 10; i++) {
+
+    for (m = 0; m < 4; m++) {
+      let radio = document.getElementById(`group${i}${m}`);
+      if (radio.checked == true && radio.value == correctAnswers[i]) {
+        console.log(radio.value)
+        counter++;
+      }
+    }
+
+  }
+
+  alert(`Your score is ${counter} out of 10, ${name}`);
+}
