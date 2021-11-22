@@ -45,7 +45,7 @@ h3 {
   font-weight: 300;
 }
 
-span.color {
+.color {
   background: #67738d;
   border-radius: 0.8em;
   -moz-border-radius: 0.8em;
@@ -58,6 +58,22 @@ span.color {
   text-align: center;
   width: 1.6em;
   margin-left: 13px;
+}
+
+.green{
+  background: #96C863 !important;
+}
+
+.sec-green{
+  background: #AFCD91 !important;
+}
+
+.orange{
+  background: #FF981F !important;
+}
+
+.sec-orange{
+  background: #FFB864 !important;
 }
 
 h1 {
@@ -85,7 +101,8 @@ h1 {
   border-radius: 8px 8px 0px 0px;
 }
 label{
-  margin-left: 10px;
+  margin-left: 28px;
+  margin-top: 16px;
 }
 
 .card{
@@ -109,7 +126,7 @@ input[type="radio" i]{
 }
 
 #submit {
-position: absolute;
+position: fixed;
 bottom: 16px;
 right: 5px;
 margin-right: 30px;
@@ -122,6 +139,11 @@ text-decoration: none;
 display: inline-block;
 font-size: 16px;
 border-radius: 12px;
+}
+
+.choices{
+  display: inline-grid;
+  grid-template-columns: auto auto ;
 }
 /* --------------- 2-1 Tablet Size --------------- */
 
@@ -170,6 +192,9 @@ h1 {
    font-size: 20px;
   line-height: 24px;
   
+}
+h1{
+  width: 600px;
 }
 
 
