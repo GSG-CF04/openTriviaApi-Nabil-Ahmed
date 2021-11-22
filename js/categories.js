@@ -41,5 +41,5 @@ let x = fetch("https://opentdb.com/api_category.php")
   
 function selcetedCate(id) {
   localStorage.setItem('category',id)
-  location.href = "../quest.html";
+  location.href = "quest.html";
 }
